@@ -57,6 +57,12 @@ class Bullet implements IGamePiece{
     return new Bullet(this.speed, this.radius, this.color, this.x + this.speed, this.y + this.speed);
   }
 
+  @Override
+  public WorldScene move(WorldScene scene) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
 
 class Ship implements IGamePiece {
@@ -82,6 +88,12 @@ class Ship implements IGamePiece {
   public Ship move() {
     return new Ship(this.speed, this.radius, this.color, this.x + this.speed, this.y);
   }
+
+  @Override
+  public WorldScene move(WorldScene scene) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }
 
 
@@ -97,8 +109,8 @@ class NBulletsWorld extends World {
     this.rand = rand;
   }
   
-  NBulletsWorld(Bullet bullets) {
-    this.bullets = bullets;
+  NBulletsWorld(Bullet bullet) {
+    this(new Bullet(IConstants.BULLET_SPEED, 50, IConstants.BULLET_COLOR, 250, 300), new Ship(3, 100, IConstants.SHIP_COLOR, 40, 60), new Random());
   }
   
   public WorldScene makeScene() {
@@ -134,7 +146,7 @@ interface IConstants {
   int SHIP_RADIUS = (1 / 30) * SCREEN_HEIGHT;
   Color SHIP_COLOR = Color.cyan;
   double SHIP_SPEED = (1.0 / 2.0) * BULLET_SPEED;
-  Range SHIP_SPAWN_LOC = new Range(SCREEN_HEIGHT - SCREEN_SEVENTH, SCREEN_HEIGHT + SCREEN_SEVENTH);
+  Range SHIP_SPAWN_LOC = new Range(SCREEN_SEVENTH, SCREEN_HEIGHT - SCREEN_SEVENTH);
 
 }
 
@@ -152,9 +164,9 @@ class Range {
   }
 }
 
-/*class RunNBulletsWorld implements IConstants{
+class RunNBulletsWorld implements IConstants{
   boolean testPlay(Tester t) {
-    NBulletsWorld myWorld = new NBulletsWorld(4);
-    return.myWorld.bigBang(SCREEN_WIDTH, SCREEN_HEIGHT);
+    NBulletsWorld myWorld = new NBulletsWorld(new Bullet(IConstants.BULLET_SPEED, 50, IConstants.BULLET_COLOR, 250, 300));
+    return myWorld.bigBang(SCREEN_WIDTH, SCREEN_HEIGHT, IConstants.TICK_RATE);
   }
-}*/
+}
